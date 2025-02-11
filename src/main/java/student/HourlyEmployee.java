@@ -19,11 +19,11 @@ public class HourlyEmployee implements IEmployee {
     /**
      * Year-to-date earnings of the employee.
      */
-    protected BigDecimal ytdEarnings;
+    private BigDecimal ytdEarnings;
     /**
      * Year-to-date taxes paid by the employee.
      */
-    protected BigDecimal ytdTaxesPaid;
+    private BigDecimal ytdTaxesPaid;
     /**
      * Pretax deductions for the employee.
      */

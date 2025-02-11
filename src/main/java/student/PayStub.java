@@ -4,10 +4,25 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class PayStub implements IPayStub {
+    /**
+     * The name of the employee.
+     */
     private final String employeeName;
+    /**
+     * The net pay for the current pay period.
+     */
     private final double netPay;
+    /**
+     * The taxes paid for the current pay period.
+     */
     private final double taxes;
+    /**
+     * The year-to-date earnings.
+     */
     private final double ytdEarnings;
+    /**
+     * The year-to-date taxes paid.
+     */
     private final double ytdTaxesPaid;
 
     /**
@@ -66,7 +81,7 @@ public class PayStub implements IPayStub {
 
     /**
      * Converts the PayStub object to a CSV string in the following format:
-     * "employee_name,net_pay,taxes,ytd_earnings,ytd_taxes_paid"
+     * "employee_name,net_pay,taxes,ytd_earnings,ytd_taxes_paid."
      *
      * @return the CSV string.
      */

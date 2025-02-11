@@ -124,9 +124,22 @@ classDiagram
     }
 
     class SalaryEmployee {
-        +SalaryEmployee(name: String, id: String, payRate: double, ytdEarnings: double, ytdTaxesPaid: double, pretaxDeductions: double)
+        - name : String
+        - id : String
+        - payRate : BigDecimal
+        # ytdEarnings : BigDecimal
+        # ytdTaxesPaid : BigDecimal
+        - pretaxDeductions : BigDecimal
+        +HourlyEmployee(name: String, id: String, payRate: double, ytdEarnings: double, ytdTaxesPaid: double, pretaxDeductions: double)
+        +getName() : String
+        +getID() : String
+        +getPayRate() : double
         +getEmployeeType() : String
-        +runPayroll(ignored: double) : IPayStub
+        +getYTDEarnings() : double
+        +getYTDTaxesPaid() : double
+        +getPretaxDeductions() : double
+        +runPayroll(hoursWorked: double) : IPayStub
+        +toCSV() : String
     }
     class IPayStub {
         <<interface>>
@@ -139,10 +152,12 @@ classDiagram
     }
 
     IEmployee <|.. HourlyEmployee
-    HourlyEmployee <|-- SalaryEmployee
-    PayrollGenerator --> "0..*" IEmployee : creates
-    PayrollGenerator --> "0..*" ITimeCard : reads
-    PayrollGenerator --> "0..*" IPayStub : generates
+    IPayStub <|.. HourlyEmployee
+    IEmployee <|.. SalaryEmployee
+    IPayStub <|.. SalaryEmployee
+    PayrollGenerator --> IEmployee
+    PayrollGenerator --> ITimeCard
+    PayrollGenerator --> IPayStub
   ``````
 
 

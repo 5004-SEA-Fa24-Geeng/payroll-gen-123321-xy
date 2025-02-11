@@ -4,14 +4,42 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class HourlyEmployee implements IEmployee {
-    private final String name;//Employee's name
-    private final String id;// Employee's unique ID
-    private final BigDecimal payRate;// Hourly pay rate of the employee
-    protected BigDecimal ytdEarnings;// Year-to-date earnings of the employee
-    protected BigDecimal ytdTaxesPaid;// Year-to-date taxes paid by the employee
-    private final BigDecimal pretaxDeductions;// Pretax deductions for the employee
+    /**
+     * Employee's name.
+     */
+    private final String name;
+    /**
+     * Employee's unique ID.
+     */
+    private final String id;
+    /**
+     * Hourly pay rate of the employee.
+     */
+    private final BigDecimal payRate;
+    /**
+     * Year-to-date earnings of the employee.
+     */
+    protected BigDecimal ytdEarnings;
+    /**
+     * Year-to-date taxes paid by the employee.
+     */
+    protected BigDecimal ytdTaxesPaid;
+    /**
+     * Pretax deductions for the employee.
+     */
+    private final BigDecimal pretaxDeductions;
 
-    public HourlyEmployee(String name, String id, double payRate, double ytdEarnings, double ytdTaxesPaid, double pretaxDeductions) {
+    /**
+     *
+     * @param name Employee's name
+     * @param id Employee's id
+     * @param payRate Employee's payrate
+     * @param ytdEarnings Employee's ytdearnings
+     * @param ytdTaxesPaid Employee's ytdtaxespaid
+     * @param pretaxDeductions Employee's pretax deductions
+     */
+    public HourlyEmployee(String name, String id, double payRate,
+                          double ytdEarnings, double ytdTaxesPaid, double pretaxDeductions) {
         this.name = name;
         this.id = id;
         this.payRate = BigDecimal.valueOf(payRate);
@@ -21,30 +49,38 @@ public class HourlyEmployee implements IEmployee {
     }
 
     @Override
-    public String getName() { return name; }
+    public String getName() { return name;
+    }
 
     @Override
-    public String getID() { return id; }
+    public String getID() { return id;
+    }
 
     @Override
-    public double getPayRate() { return payRate.doubleValue(); }
+    public double getPayRate() {
+        return payRate.doubleValue(); }
 
     @Override
-    public String getEmployeeType() { return "HOURLY"; }
+    public String getEmployeeType() {
+        return "HOURLY"; }
 
     @Override
-    public double getYTDEarnings() { return ytdEarnings.doubleValue(); }
+    public double getYTDEarnings() {
+        return ytdEarnings.doubleValue(); }
 
     @Override
-    public double getYTDTaxesPaid() { return ytdTaxesPaid.doubleValue(); }
+    public double getYTDTaxesPaid() {
+        return ytdTaxesPaid.doubleValue(); }
 
     @Override
-    public double getPretaxDeductions() { return pretaxDeductions.doubleValue(); }
+    public double getPretaxDeductions() {
+        return pretaxDeductions.doubleValue(); }
 
     @Override
     public IPayStub runPayroll(double hoursWorked) {
-        if (hoursWorked < 0) return null;
-
+        if (hoursWorked < 0) {
+            return null;
+        }
         BigDecimal hours = BigDecimal.valueOf(hoursWorked);
 
         BigDecimal overtimeHours = hours.max(BigDecimal.valueOf(40))

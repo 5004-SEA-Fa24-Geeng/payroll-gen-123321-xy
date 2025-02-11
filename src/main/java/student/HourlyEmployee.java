@@ -19,11 +19,11 @@ public class HourlyEmployee implements IEmployee {
     /**
      * Year-to-date earnings of the employee.
      */
-    protected BigDecimal ytdEarnings;
+    private BigDecimal ytdEarnings;
     /**
      * Year-to-date taxes paid by the employee.
      */
-    protected BigDecimal ytdTaxesPaid;
+    private BigDecimal ytdTaxesPaid;
     /**
      * Pretax deductions for the employee.
      */
@@ -49,35 +49,43 @@ public class HourlyEmployee implements IEmployee {
     }
 
     @Override
-    public String getName() { return name;
+    public String getName() {
+        return name;
     }
 
     @Override
-    public String getID() { return id;
+    public String getID() {
+        return id;
     }
 
     @Override
     public double getPayRate() {
-        return payRate.doubleValue(); }
+        return payRate.doubleValue();
+    }
 
     @Override
     public String getEmployeeType() {
-        return "HOURLY"; }
+        return "HOURLY";
+    }
 
     @Override
     public double getYTDEarnings() {
-        return ytdEarnings.doubleValue(); }
+        return ytdEarnings.doubleValue();
+    }
 
     @Override
     public double getYTDTaxesPaid() {
-        return ytdTaxesPaid.doubleValue(); }
+        return ytdTaxesPaid.doubleValue();
+    }
 
     @Override
     public double getPretaxDeductions() {
-        return pretaxDeductions.doubleValue(); }
+        return pretaxDeductions.doubleValue();
+    }
 
     @Override
-    public IPayStub runPayroll(double hoursWorked) {
+    public IPayStub runPayroll(double hoursWorked)
+    {
         if (hoursWorked < 0) {
             return null;
         }

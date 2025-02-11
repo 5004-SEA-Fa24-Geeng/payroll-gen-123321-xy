@@ -23,8 +23,9 @@ public final class Builder {
      */
     public static IEmployee buildEmployeeFromCSV(String csv) {
         String[] parts = csv.split(",");
-        if (parts.length != 7) throw new IllegalArgumentException("Invalid employee CSV format");
-
+        if (parts.length != 7) {
+            throw new IllegalArgumentException("Invalid employee CSV format");
+        }
         String type = parts[0];
         String name = parts[1];
         String id = parts[2];
@@ -48,8 +49,9 @@ public final class Builder {
      */
     public static ITimeCard buildTimeCardFromCSV(String csv) {
         String[] parts = csv.split(",");
-        if (parts.length != 2) throw new IllegalArgumentException("Invalid time card CSV format");
-
+        if (parts.length != 2) {
+            throw new IllegalArgumentException("Invalid time card CSV format");
+        }
         String employeeID = parts[0];
         double hoursWorked = Double.parseDouble(parts[1]);
 

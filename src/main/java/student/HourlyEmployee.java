@@ -4,12 +4,12 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class HourlyEmployee implements IEmployee {
-    private final String name;
-    private final String id;
-    private final BigDecimal payRate;
-    protected BigDecimal ytdEarnings;
-    protected BigDecimal ytdTaxesPaid;
-    private final BigDecimal pretaxDeductions;
+    private final String name;//Employee's name
+    private final String id;// Employee's unique ID
+    private final BigDecimal payRate;// Hourly pay rate of the employee
+    protected BigDecimal ytdEarnings;// Year-to-date earnings of the employee
+    protected BigDecimal ytdTaxesPaid;// Year-to-date taxes paid by the employee
+    private final BigDecimal pretaxDeductions;// Pretax deductions for the employee
 
     public HourlyEmployee(String name, String id, double payRate, double ytdEarnings, double ytdTaxesPaid, double pretaxDeductions) {
         this.name = name;

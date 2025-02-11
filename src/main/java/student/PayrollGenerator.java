@@ -1,24 +1,25 @@
 package student;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.LinkedList;
 
 /**
  * Main driver for the PayrollGenerator program.
- * 
+ *
  * Students, you are free to modify this file as needed, but you need to leave in the parts where we
  * can pass in the employee and payroll files as arguments.
- * 
+ *
  * Grading wise, we will both be using unit tests, and running your program with different employee
  * files. We also will create a separate output file for each.
- * 
- * 
+ *
+ *
  * To run the program, you can use the following command:
- * 
+ *
  * java student.PayrollGenerator -e employees_mine.csv -t time_cards.csv -o pay_stubs_mine.csv or
  * java student.PayrollGenerator The above defaults listed below.
- * 
+ *
  * We also suggest meeting with a TA and learning how to add command line arguments
  * in your IDE, as it will make testing and debugging easier.
  **/
@@ -40,25 +41,24 @@ public final class PayrollGenerator {
 
     /**
      * Main driver for the program.
-     * 
+     *
      * @param args command line arguments
      */
     public static void main(String[] args) {
         Arguments arguments = Arguments.process(args); // leave this, and make sure you use it on
-                                                       // reading/writing files!
+        // reading/writing files!
 
         // you are free to modify this code, or use it as a basis for your code
         // depends on how you want to implement the program
-
         List<String> employeeLines = FileUtil.readFileToList(arguments.getEmployeeFile());
         List<String> timeCards = FileUtil.readFileToList(arguments.getTimeCards());
 
+        // Parse CSV data into objects
         List<IEmployee> employees = employeeLines.stream().map(Builder::buildEmployeeFromCSV)
                 .collect(Collectors.toList());
 
         List<ITimeCard> timeCardList = timeCards.stream().map(Builder::buildTimeCardFromCSV)
                 .collect(Collectors.toList());
-
         List<IPayStub> payStubs = new LinkedList<>();
 
 
@@ -69,19 +69,31 @@ public final class PayrollGenerator {
         // as it is invalid, but if is 0, you still generate a paystub, but the amount is 0.
 
         //YOUR CODE HERE
-      
+        // Process payroll for each employee based on their time card
+        for (ITimeCard timeCard : timeCardList) {
+            IEmployee employee = employees.stream()
+                    .filter(e -> e.getID().equals(timeCard.getEmployeeID()))
+                    .findFirst().orElse(null);
 
-         // now save out employees to a new file
+            if (employee != null) {
+                IPayStub payStub = employee.runPayroll(timeCard.getHoursWorked());
+                if (payStub != null) {
+                    payStubs.add(payStub);
+                }
+            }
+        }
 
-         employeeLines = employees.stream().map(IEmployee::toCSV).collect(Collectors.toList());
-         employeeLines.add(0, FileUtil.EMPLOYEE_HEADER);
-         FileUtil.writeFile(arguments.getEmployeeFile(), employeeLines);
- 
-         // now save out the pay stubs
-         List<String> payStubLines = payStubs.stream().filter(x -> x != null).map(IPayStub::toCSV)
-                 .collect(Collectors.toList());
-         payStubLines.add(0, FileUtil.PAY_STUB_HEADER);
-         FileUtil.writeFile(arguments.getPayrollFile(), payStubLines);
+        // now save out employees to a new file
+
+        employeeLines = employees.stream().map(IEmployee::toCSV).collect(Collectors.toList());
+        employeeLines.add(0, FileUtil.EMPLOYEE_HEADER);
+        FileUtil.writeFile(arguments.getEmployeeFile(), employeeLines);
+
+        // now save out the pay stubs
+        List<String> payStubLines = payStubs.stream().filter(x -> x != null).map(IPayStub::toCSV)
+                .collect(Collectors.toList());
+        payStubLines.add(0, FileUtil.PAY_STUB_HEADER);
+        FileUtil.writeFile(arguments.getPayrollFile(), payStubLines);
 
     }
 
@@ -103,7 +115,7 @@ public final class PayrollGenerator {
 
         /**
          * Constructor for Arguments. Setup as private, so builder has to be used.
-         * 
+         *
          * @see #process(String[])
          */
         private Arguments() {
@@ -112,7 +124,7 @@ public final class PayrollGenerator {
 
         /**
          * Gets the employee file.
-         * 
+         *
          * @return the name of the employee file
          */
         public String getEmployeeFile() {
@@ -121,7 +133,7 @@ public final class PayrollGenerator {
 
         /**
          * Gets the payroll file.
-         * 
+         *
          * @return the name of the payroll file
          */
         public String getPayrollFile() {
@@ -130,7 +142,7 @@ public final class PayrollGenerator {
 
         /**
          * Gets the time card file.
-         * 
+         *
          * @return the name of the time card file
          */
         public String getTimeCards() {
@@ -155,7 +167,7 @@ public final class PayrollGenerator {
 
         /**
          * Processes the arguments.
-         * 
+         *
          * @param args the arguments
          * @return an Argument object with file names added
          */

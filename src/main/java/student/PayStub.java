@@ -81,7 +81,7 @@ public class PayStub implements IPayStub {
 
     /**
      * Converts the PayStub object to a CSV string in the following format:
-     * "employee_name,net_pay,taxes,ytd_earnings,ytd_taxes_paid."
+     * "employee_name,net_pay,taxes,ytd_earnings,ytd_taxes_paid".
      *
      * @return the CSV string.
      */

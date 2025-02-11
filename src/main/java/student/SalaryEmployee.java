@@ -32,13 +32,36 @@ public class SalaryEmployee implements IEmployee, IPayStub {
      * Pretax deductions for the employee.
      */
     private final BigDecimal pretaxDeductions;
-
+    /**
+     * BigDecimal netPay;
+     */
     BigDecimal netPay;
+    /**
+     * BigDecimal taxablePay;
+     */
     BigDecimal taxablePay;
+    /**
+     * BigDecimal taxes;
+     */
     BigDecimal taxes;
 
-
-    public SalaryEmployee(String name, String id, double payRate, double ytdEarnings, double ytdTaxesPaid, double pretaxDeductions) {
+    /**
+     *
+     * @param name Employee's name
+     * @param id Employee's id
+     * @param payRate Employee's payRate
+     * @param ytdEarnings Employee's ytdEarnings
+     * @param ytdTaxesPaid Employee's ytdTaxesPaid
+     * @param pretaxDeductions Employee's pretaxDeductions
+     */
+    public SalaryEmployee(
+            String name,
+            String id,
+            double payRate,
+            double ytdEarnings,
+            double ytdTaxesPaid,
+            double pretaxDeductions
+    ) {
         this.name = name;
         this.id = id;
         this.payRate = BigDecimal.valueOf(payRate);
@@ -103,7 +126,10 @@ public class SalaryEmployee implements IEmployee, IPayStub {
                 .setScale(2, RoundingMode.HALF_UP);
          netPay = taxablePay.multiply(new BigDecimal("0.7735"))
                 .setScale(2, RoundingMode.HALF_UP);
-        ytdEarnings = BigDecimal.valueOf(getYTDEarnings()).add(grossPay).subtract(BigDecimal.valueOf(getPretaxDeductions())).subtract(taxes);
+        ytdEarnings = BigDecimal.valueOf(getYTDEarnings())
+                .add(grossPay)
+                .subtract(BigDecimal.valueOf(getPretaxDeductions()))
+                .subtract(taxes);
         ytdTaxesPaid = BigDecimal.valueOf(getYTDTaxesPaid()).add(taxes);
         return new PayStub(getName(), netPay.doubleValue(), taxes.doubleValue(),
                 ytdEarnings.doubleValue(), ytdTaxesPaid.doubleValue());

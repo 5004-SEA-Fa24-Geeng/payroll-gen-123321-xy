@@ -84,8 +84,7 @@ public class HourlyEmployee implements IEmployee {
     }
 
     @Override
-    public IPayStub runPayroll(double hoursWorked)
-    {
+    public IPayStub runPayroll(double hoursWorked) {
         if (hoursWorked < 0) {
             return null;
         }

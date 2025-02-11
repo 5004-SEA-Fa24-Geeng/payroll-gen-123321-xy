@@ -35,15 +35,15 @@ public class SalaryEmployee implements IEmployee, IPayStub {
     /**
      * BigDecimal netPay.
      */
-    BigDecimal netPay;
+    private BigDecimal netPay;
     /**
      * BigDecimal taxablePay.
      */
-    BigDecimal taxablePay;
+    private BigDecimal taxablePay;
     /**
      * BigDecimal taxes.
      */
-    BigDecimal taxes;
+    private BigDecimal taxes;
 
     /**
      *
